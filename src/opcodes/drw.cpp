@@ -32,13 +32,16 @@ void DRW::apply(State &state, word _data) {
 
     while (y < h) {
         vector<byte> row;
+        size_t address = (cy + y) * CHIP8_COLS + cx;
         for (byte x = 0; x < 8; ++x) {
-            byte current = vMemory[(cy + y) * CHIP8_COLS + cx + x];
-            byte p = (sprite[y] & (0x80 >> x)) ^ current;
-            row.push_back(p);
-            if (current && !p) state.v(0xf) = 1;
+            byte current = vMemory[address + x];
+            if (sprite[y] & (0x80 >> x)) {
+                if (current) state.v(0xf) = 1;
+                current ^= 1;
+            }
+            row.push_back(current);
         }
-        state.video(row, (cy + y) * CHIP8_COLS + cx);
+        state.video(row, address);
         ++y;
     }
 }
