@@ -37,6 +37,21 @@ void State::load(const byte *program, std::size_t size, word address) {
     copy(program, program + size, _impl->memory.begin() + address);
 }
 
+void State::reset() {
+    _impl->vMemory.fill(0);
+    _impl->v.fill(0);
+    _impl->stack.fill(0);
+    _impl->key.fill(0);
+    _impl->i = 0;
+    _impl->pc = CODE_ADDRESS;
+    _impl->sp = 0;
+    _impl->delayTimer = 0;
+    _impl->soundTimer = 0;
+    _impl->videoChanged = true;
+    _impl->keyPressed = false;
+    srand(word(time(0)));
+}
+
 word State::fetch() {
     word opcode = (_impl->memory.at(_impl->pc) << 8) | _impl->memory.at(_impl->pc + 1);
     _impl->pc += OPCODE_BYTES;

@@ -40,6 +40,7 @@ int main(int argc, char *argv[]) {
 }
 
 namespace {
+
 void run() {
     Interpreter i{std::move(ioHandler), filename, clockHZ};
 

@@ -28,6 +28,8 @@ public:
     State();
     virtual ~State();
 
+    void reset();
+
     void load(const std::vector<byte> &program, word address = CODE_ADDRESS);
     void load(const byte *program, std::size_t size, word address = CODE_ADDRESS);
 

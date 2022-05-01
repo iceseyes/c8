@@ -10,7 +10,7 @@
 namespace chip8 {
 
 struct State::_Pimpl {
-    std::array<byte, MEMORY_SIZE> memory;  // device memory (reserver + ram + rom)
+    std::array<byte, MEMORY_SIZE> memory;  // device memory (reserved + ram + rom)
     State::VideoMemory vMemory;            // video memory
     std::array<byte, V_REG_NUM> v;         // general purpose registers
     std::array<word, STACK_SIZE> stack;    // function call stack

@@ -100,7 +100,9 @@ void SDLIOHandler::handleEvent(State &_state, SDL_Event *e) {
     if (pressed || e->type == SDL_KEYUP) {
         if (ch == 'q')
             _running = false;
-        else if (ch >= 0x30 && ch <= 0x39)
+        else if (ch == 'r' || ch == 'R') {
+            _state.reset();
+        } else if (ch >= 0x30 && ch <= 0x39)
             _state.keyPressed(ch - 0x30, pressed);
         else if (ch >= 0x61 && ch <= 0x66)
             _state.keyPressed(ch - 0x61 + 0x0a, pressed);
