@@ -119,7 +119,9 @@ vector<byte> TextIOHandler::load(istream &provider) {
 }
 
 void TextIOHandler::setChar(State &_state, char ch, bool pressed) {
-    if (ch >= 0x30 && ch <= 0x39)
+    if (ch == 'r' || ch == 'R') {
+        _state.reset();
+    } else if (ch >= 0x30 && ch <= 0x39)
         _state.keyPressed(ch - 0x30, pressed);
     else if (tolower(ch) >= 0x61 && tolower(ch) <= 0x66)
         _state.keyPressed(tolower(ch) - 0x61 + 0x0a, pressed);
