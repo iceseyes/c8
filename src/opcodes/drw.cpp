@@ -33,6 +33,8 @@ void DRW::apply(State &state, word _data) {
     while (y < h) {
         vector<byte> row;
         size_t address = (cy + y) * CHIP8_COLS + cx;
+        if (address > (vMemory.size() - 8)) return;
+
         for (byte x = 0; x < 8; ++x) {
             byte current = vMemory[address + x];
             if (sprite[y] & (0x80 >> x)) {
