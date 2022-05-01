@@ -75,7 +75,7 @@ string VREG::toString(word _data) {
     byte h = getNibble(_data);
     auto nmemonic = (h < 8) ? NMEMONIC[h] : NMEMONIC[8];
 
-    ss << nmemonic << " v" << hex << int(r1) << ", v" << int(r2) << ", 0x" << setw(1) << word(h) << dec;
+    ss << nmemonic << " v" << hex << int(r1) << ", v" << int(r2);
     return ss.str();
 }
 

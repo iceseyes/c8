@@ -23,6 +23,9 @@ struct State::_Pimpl {
     byte soundTimer;    // sound timer register, when comes to 0, buzzer ring
     bool videoChanged;  // when a video memory update occurs, this flags recorded the event
     byte keyPressed;    // last key pressed;
+
+    bool stopped{false};       // machine is stopped (fetch is blocked)
+    bool fetchEnabled{false};  // enable next instruction fetching
 };
 
 }  // namespace chip8

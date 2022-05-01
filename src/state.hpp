@@ -56,6 +56,12 @@ public:
     virtual word indexRegister() const;
     virtual void indexRegister(word v);
 
+    virtual bool stopped() const;
+    virtual bool nextInstructionEnabled() const;
+    virtual void stop();
+    virtual void resume();
+    virtual void nextInstruction();
+
     virtual word pc() const;
     virtual void pc(word _pc);
 

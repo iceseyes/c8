@@ -6,6 +6,7 @@
 #include <vector>
 #include <string>
 #include <iomanip>
+#include <thread>
 
 #include "opcode.hpp"
 
@@ -88,6 +89,7 @@ milliseconds Interpreter::clockRate() const { return RATE(_clockHZ); };
 
 void Interpreter::runOne() {
     if (!__started) throw std::logic_error("Interpreter not STARTED!");
+    while (_state.stopped() && !_state.nextInstructionEnabled()) std::this_thread::sleep_for(50ms);
 
     auto pc = _state.pc();
     _core.fetch();

@@ -55,12 +55,22 @@ void State::reset() {
 word State::fetch() {
     word opcode = (_impl->memory.at(_impl->pc) << 8) | _impl->memory.at(_impl->pc + 1);
     _impl->pc += OPCODE_BYTES;
+    _impl->fetchEnabled = false;
 
     return opcode;
 }
 
 word State::indexRegister() const { return _impl->i; }
 void State::indexRegister(word v) { _impl->i = v; }
+
+bool State::nextInstructionEnabled() const { return _impl->fetchEnabled; }
+bool State::stopped() const { return _impl->stopped; }
+
+void State::stop() { _impl->stopped = true; }
+void State::resume() {
+    { _impl->stopped = false; }
+}
+void State::nextInstruction() { _impl->fetchEnabled = true; }
 
 word State::pc() const { return _impl->pc; }
 void State::pc(word _pc) {
