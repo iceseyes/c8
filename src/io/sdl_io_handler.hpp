@@ -17,7 +17,6 @@ namespace chip8 {
 class SDLIOHandler : public IOHandler {
     SDL_Window *window;
     SDL_Renderer *renderer;
-    std::unique_ptr<std::thread> _inThread;
     bool _running;
     char _lastCh;
     std::istream &_in;

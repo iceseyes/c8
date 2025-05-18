@@ -110,7 +110,6 @@ void TextIOHandler::draw(const State &_state) {
 #ifdef HAVE_TERMIOS
         tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
 #endif
-        _inThread->join();
         exit(0);
     }
 }

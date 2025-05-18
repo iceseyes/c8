@@ -13,7 +13,6 @@ namespace chip8 {
 class TextIOHandler : public IOHandler {
     std::ostream &_out;
     std::istream &_in;
-    std::unique_ptr<std::thread> _inThread;
     bool _running;
     char _lastCh;
 
