@@ -41,6 +41,8 @@ void DebugIOHandler::log(word pc) { cout << "Reading PC: 0x" << setw(4) << setfi
 
 void DebugIOHandler::init(State &_state) {}
 
+void DebugIOHandler::handleEvents(State &_state) {}
+
 void DebugIOHandler::draw(const State &_state) { cout << to_string(_state) << endl; }
 
 vector<byte> DebugIOHandler::load() { return load(std::cin); }

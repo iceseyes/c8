@@ -17,6 +17,7 @@ public:
     virtual void log(word pc){};
 
     virtual void init(State &_state) = 0;
+    virtual void handleEvents(State &_state) = 0;
     virtual void draw(const State &_state) = 0;
 
     virtual std::vector<byte> load() = 0;

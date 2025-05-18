@@ -68,20 +68,22 @@ void TextIOHandler::init(State &_state) {
     _out << "\x1B[2J"
          << "\x1B[1;1H";
     _running = true;
-    _inThread = std::make_unique<thread>([&]() {
-        while (_running) {
-            char ch = getchar();
-            if (ch == 'q' || ch == 'Q')
-                _running = false;
-            else if (ch == 'r' || ch == 'R') {
-                _state.reset();
-            } else if (ch != _lastCh) {
-                setChar(_state, _lastCh, false);
-                setChar(_state, ch, true);
-                _lastCh = ch;
-            }
+}
+
+void TextIOHandler::handleEvents(State &_state) {
+    while (_running) {
+        char ch = getchar();
+        if (ch == 'q' || ch == 'Q')
+            _running = false;
+        else if (ch == 'r' || ch == 'R') {
+            _state.reset();
+        } else if (ch != _lastCh) {
+            setChar(_state, _lastCh, false);
+            setChar(_state, ch, true);
+            _lastCh = ch;
         }
-    });
+    }
+    exit(0);
 }
 
 void TextIOHandler::draw(const State &_state) {
