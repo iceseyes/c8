@@ -77,6 +77,12 @@ void TextIOHandler::handleEvents(State &_state) {
             _running = false;
         else if (ch == 'r' || ch == 'R') {
             _state.reset();
+        } else if (ch == 'p' || ch == 'P') {
+            if (!_state.stopped()) _state.stop();
+        } else if (ch == 'n' || ch == 'N') {
+            if (_state.stopped() && !_state.nextInstructionEnabled()) _state.nextInstruction();
+        } else if (ch == 'c' || ch == 'C') {
+            if (_state.stopped()) _state.resume();
         } else if (ch != _lastCh) {
             setChar(_state, _lastCh, false);
             setChar(_state, ch, true);
