@@ -27,9 +27,9 @@ using namespace std::chrono_literals;
 
 namespace chip8 {
 
-DebugIOHandler::DebugIOHandler() {}
+DebugIOHandler::DebugIOHandler() = default;
 
-DebugIOHandler::~DebugIOHandler() noexcept {}
+DebugIOHandler::~DebugIOHandler() noexcept = default;
 
 void DebugIOHandler::log(const std::string &msg) { cout << msg << endl; }
 
@@ -39,7 +39,7 @@ void DebugIOHandler::log(word pc, const Core::DecodedOperation &op) {
 
 void DebugIOHandler::log(word pc) { cout << "Reading PC: 0x" << setw(4) << setfill('0') << hex << pc << dec << endl; }
 
-void DebugIOHandler::init(State &_state) {}
+void DebugIOHandler::init(State &/* _state */) {}
 
 void DebugIOHandler::draw(const State &_state) { cout << to_string(_state) << endl; }
 

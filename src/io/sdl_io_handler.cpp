@@ -34,7 +34,7 @@ SDLIOHandler::~SDLIOHandler() noexcept {
     SDL_Quit();
 }
 
-void SDLIOHandler::log(const std::string &msg) {}
+void SDLIOHandler::log(const std::string &/* msg */) {}
 
 void SDLIOHandler::log(word pc, const Core::DecodedOperation &op) {
     cout << "Read PC: 0x" << setw(4) << setfill('0') << hex << pc << " opcode: " << op.first.family << " 0x" << setw(4)
@@ -70,8 +70,8 @@ void SDLIOHandler::draw(const State &_state) {
     SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE);
 
     auto &v = _state.video();
-    for (int i = 0; i < CHIP8_ROWS; ++i) {
-        for (int j = 0; j < CHIP8_COLS; ++j) {
+    for (std::size_t i = 0; i < CHIP8_ROWS; ++i) {
+        for (std::size_t j = 0; j < CHIP8_COLS; ++j) {
             SDL_Rect fillRect = {int(j * screenWidth / CHIP8_COLS), int(i * screenHeight / CHIP8_ROWS), magnify,
                                  magnify};
             if (v[i * CHIP8_COLS + j]) SDL_RenderFillRect(renderer, &fillRect);

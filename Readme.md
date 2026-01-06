@@ -11,12 +11,33 @@ For building the project you need gcc/clang compiler and cmake build tool instal
 need [program_options](https://www.boost.org/doc/libs/1_75_0/doc/html/program_options.html)
 by libboost and [SDL2](https://www.libsdl.org/download-2.0.php).
 
-Than, you have to run cmake, for example in this way:
+Then, you have to run cmake, for example in this way:
 
     mkdir -p build/Debug
     cd build/Debug
     cmake -DCMAKE_BUILD_TYPE=Debug ../../
     cmake --build . -- -j4
+
+### vcpkg and modern cmake presets (recommended)
+
+If you are using [vcpkg](https://vcpkg.io/en/), cmake can install dependencies automatically for you.
+
+For that, you have to set the environment variable `VCPKG_ROOT` pointing to your vcpkg installation folder.
+
+You can run cmake from the project root folder like this:
+
+    cmake --presets dev
+    cmake --build --preset dev -- -j4
+
+This will install dependencies and build the project in `build/debug` folder.
+Therefore, all the binaries will be created in `build/debug` folder, i.e.,
+use `build/debug/chip8` to run the emulator.
+
+To run tests, you can use:
+
+    ctest --preset dev
+
+Also, you can use `--preset release` to build a release version of the project.
 
 ## Use
 

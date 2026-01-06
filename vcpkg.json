@@ -1,0 +1,9 @@
+{
+  "name": "c8",
+  "version": "0.1.0",
+  "dependencies": [
+    "boost",
+    "sdl2",
+    "gtest"
+  ]
+}

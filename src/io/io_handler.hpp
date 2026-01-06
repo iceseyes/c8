@@ -14,7 +14,7 @@ public:
 
     virtual void log(const std::string &msg) = 0;
     virtual void log(word pc, const Core::DecodedOperation &op) = 0;
-    virtual void log(word pc){};
+    virtual void log(word /* pc */){};
 
     virtual void init(State &_state) = 0;
     virtual void draw(const State &_state) = 0;

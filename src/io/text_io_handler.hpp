@@ -19,7 +19,7 @@ class TextIOHandler : public IOHandler {
 
 public:
     TextIOHandler(std::ostream &_out, std::istream &_in);
-    ~TextIOHandler();
+    ~TextIOHandler() noexcept override;
 
     void log(const std::string &msg) override;
     void log(word pc, const Core::DecodedOperation &op) override;

@@ -19,7 +19,6 @@ class SDLIOHandler : public IOHandler {
     SDL_Renderer *renderer;
     std::unique_ptr<std::thread> _inThread;
     bool _running;
-    char _lastCh;
     std::istream &_in;
     const int magnify{20};
     const size_t screenWidth;
@@ -27,7 +26,7 @@ class SDLIOHandler : public IOHandler {
 
 public:
     SDLIOHandler(std::istream &_in, size_t magnify = 20);
-    ~SDLIOHandler();
+    ~SDLIOHandler() noexcept override;
 
     void log(const std::string &msg) override;
     void log(word pc, const Core::DecodedOperation &op) override;

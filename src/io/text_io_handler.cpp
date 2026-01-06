@@ -87,8 +87,8 @@ void TextIOHandler::init(State &_state) {
 void TextIOHandler::draw(const State &_state) {
     stringstream ss;
     auto &v = _state.video();
-    for (int i = 0; i < CHIP8_ROWS; ++i) {
-        for (int j = 0; j < CHIP8_COLS; ++j) {
+    for (std::size_t i = 0; i < CHIP8_ROWS; ++i) {
+        for (std::size_t j = 0; j < CHIP8_COLS; ++j) {
             ss << (v[i * CHIP8_COLS + j] ? "#" : " ");
         }
         ss << endl;

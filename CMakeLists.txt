@@ -1,15 +1,17 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.10)
+cmake_policy(SET CMP0167 NEW)
 project(chip8 CXX)
 
 include(CheckIncludeFileCXX)
+include(${CMAKE_SOURCE_DIR}/cmake/warnings.cmake)
 
-option(WITH_TEST "Enable test module" ON)
+option(WITH_TESTS "Enable test module" ON)
 
 set(CMAKE_CXX_STANDARD 20)
 
 find_package(Threads)
 find_package(Boost REQUIRED COMPONENTS program_options)
-find_package(SDL2 REQUIRED)
+find_package(SDL2 CONFIG REQUIRED)
 
 CHECK_INCLUDE_FILE_CXX(unistd.h HAVE_UNISTD)
 CHECK_INCLUDE_FILE_CXX(termios.h HAVE_TERMIOS)
@@ -48,9 +50,21 @@ add_library(c8support
 add_executable(chip8 src/main.cpp)
 add_executable(dch8 src/dch8.cpp)
 
-target_link_libraries(chip8 PRIVATE c8support c8opcodes Threads::Threads Boost::program_options ${SDL2_LIBRARIES})
+target_link_libraries(chip8
+        PRIVATE
+        c8support
+        c8opcodes
+        Threads::Threads
+        Boost::program_options
+        SDL2::SDL2)
 target_link_libraries(dch8 PRIVATE c8support c8opcodes Boost::program_options)
 
-if (WITH_TEST)
+enable_warnings(c8support)
+enable_warnings(c8opcodes)
+enable_warnings(chip8)
+enable_warnings(dch8)
+
+if (WITH_TESTS)
+    enable_testing()
     add_subdirectory(test)
 endif ()

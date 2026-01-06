@@ -13,7 +13,7 @@ namespace chip8 {
 class DebugIOHandler : public IOHandler {
 public:
     DebugIOHandler();
-    ~DebugIOHandler();
+    ~DebugIOHandler() noexcept override;
 
     void log(const std::string &msg) override;
     void log(word pc, const Core::DecodedOperation &op) override;

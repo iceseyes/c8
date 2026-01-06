@@ -68,7 +68,7 @@ public:
     explicit Opcode(const std::string family, word code);
     virtual ~Opcode() = default;
 
-    virtual bool valid(word _data) { return true; };
+    virtual bool valid(word /* _data */) { return true; };
     virtual void apply(State &state, word _data) = 0;
     void operator()(State &state, word _data);
 
