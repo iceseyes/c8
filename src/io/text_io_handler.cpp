@@ -68,20 +68,28 @@ void TextIOHandler::init(State &_state) {
     _out << "\x1B[2J"
          << "\x1B[1;1H";
     _running = true;
-    _inThread = std::make_unique<thread>([&]() {
-        while (_running) {
-            char ch = getchar();
-            if (ch == 'q' || ch == 'Q')
-                _running = false;
-            else if (ch == 'r' || ch == 'R') {
-                _state.reset();
-            } else if (ch != _lastCh) {
-                setChar(_state, _lastCh, false);
-                setChar(_state, ch, true);
-                _lastCh = ch;
-            }
+}
+
+void TextIOHandler::handleEvents(State &_state) {
+    while (_running) {
+        char ch = getchar();
+        if (ch == 'q' || ch == 'Q')
+            _running = false;
+        else if (ch == 'r' || ch == 'R') {
+            _state.reset();
+        } else if (ch == 'p' || ch == 'P') {
+            if (!_state.stopped()) _state.stop();
+        } else if (ch == 'n' || ch == 'N') {
+            if (_state.stopped() && !_state.nextInstructionEnabled()) _state.nextInstruction();
+        } else if (ch == 'c' || ch == 'C') {
+            if (_state.stopped()) _state.resume();
+        } else if (ch != _lastCh) {
+            setChar(_state, _lastCh, false);
+            setChar(_state, ch, true);
+            _lastCh = ch;
         }
-    });
+    }
+    exit(0);
 }
 
 void TextIOHandler::draw(const State &_state) {
@@ -102,7 +110,6 @@ void TextIOHandler::draw(const State &_state) {
 #ifdef HAVE_TERMIOS
         tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
 #endif
-        _inThread->join();
         exit(0);
     }
 }

@@ -20,6 +20,7 @@ public:
     void log(word pc) override;
 
     void init(State &_state) override;
+    void handleEvents(State &_state) override;
     void draw(const State &_state) override;
 
     std::vector<byte> load() override;

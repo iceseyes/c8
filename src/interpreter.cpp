@@ -66,13 +66,17 @@ void Interpreter::run() {
     _io->init(_state);
     _lastTick = Clock::now();
 
-    while (true) {
-        if (checkTime()) {
-            runOne();
-            updateVideo();
-            updateKeyboard();
+    std::thread mainLoop([this]() {
+        while (true) {
+            if (checkTime()) {
+                runOne();
+                updateVideo();
+                updateKeyboard();
+            }
         }
-    }
+    });
+    _io->handleEvents(_state);
+    mainLoop.join();
 }
 
 bool Interpreter::checkTime() {

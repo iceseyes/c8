@@ -52,16 +52,16 @@ void SDLIOHandler::init(State &_state) {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
     SDL_RenderClear(renderer);
     SDL_RenderPresent(renderer);
+}
 
-    _inThread = std::make_unique<thread>([&]() {
-        SDL_Event e;
-        while (_running) {
-            while (SDL_PollEvent(&e) != 0) {
-                handleEvent(_state, &e);
-            }
+void SDLIOHandler::handleEvents(State &_state) {
+    SDL_Event e;
+    while (_running) {
+        while (SDL_PollEvent(&e) != 0) {
+            handleEvent(_state, &e);
         }
-        exit(0);
-    });
+    }
+    exit(0);
 }
 
 void SDLIOHandler::draw(const State &_state) {

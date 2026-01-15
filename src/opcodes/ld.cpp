@@ -115,6 +115,8 @@ string LDX::toString(word _data) {
            << ", v" << hex << int(reg) << dec;
     } else if (f == READ_OPCODE) {
         ss << NMEMONIC << " v" << hex << int(reg) << ", [i]" << dec;
+    } else {
+        ss << NMEMONIC << hex << " DATA: 0x" << setw(4) << _data << dec << " UNKNOWN";
     }
 
     return ss.str();

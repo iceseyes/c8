@@ -34,7 +34,9 @@ SDLDebugIOHandler::~SDLDebugIOHandler() {}
 void SDLDebugIOHandler::log(const std::string &msg) { cout << msg << endl; };
 
 void SDLDebugIOHandler::log(word pc, const Core::DecodedOperation &op) {
-    cout << "0x" << setw(4) << setfill('0') << hex << pc << dec << " " << op.first.toString(op.second) << endl;
+    auto opcode = op.first.toString(op.second);
+    if (opcode.empty()) opcode = op.first.family;
+    cout << "0x" << setw(4) << setfill('0') << hex << pc << dec << " " << opcode << endl;
 };
 
 void SDLDebugIOHandler::init(State &_state) { SDLIOHandler::init(_state); }
