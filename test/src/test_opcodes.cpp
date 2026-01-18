@@ -376,7 +376,7 @@ TEST(OpCodesTest, DRAW_execute) {
     EXPECT_CALL(state, read(0x30, 3)).WillOnce(Return(vector<byte>({1, 2, 3})));
 
     EXPECT_CALL(state, v(0xf)).WillRepeatedly(ReturnRef(vf));
-    EXPECT_CALL(state, video(vector<byte>({0, 0, 0, 0, 0, 0, 0, 1}), 0x0));
+    EXPECT_CALL(state, video(vector<byte>({0, 0, 0, 0, 0, 0, 1, 0}), 0x0));
 
     EXPECT_CALL(state, v(0xf)).WillRepeatedly(ReturnRef(vf));
     EXPECT_CALL(state, video(vector<byte>({0, 0, 0, 0, 0, 0, 2, 0}), 0x40)).Times(1);

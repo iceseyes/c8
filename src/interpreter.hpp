@@ -22,7 +22,7 @@ class Interpreter {
     std::size_t _clockHZ{CLOCK_HZ};
 
 public:
-    static constexpr std::size_t CLOCK_HZ{200};
+    static constexpr std::size_t CLOCK_HZ{500};
 
     Interpreter(std::unique_ptr<IOHandler> &&_io, const std::string &_programFile = "", std::size_t clockHZ = CLOCK_HZ);
 
